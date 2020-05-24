@@ -1,15 +1,9 @@
 from . import messages
 from .tools import expect
 
+
 @expect(messages.AVAAddress, field="address")
 def get_address(
-    client,
-    n,
+    client, n,
 ):
-    return client.call(
-        messages.GetAVAAddress(
-            address_n=n,
-        )
-    )
-
-
+    return client.call(messages.GetAVAAddress(address_n=n,))
