@@ -440,6 +440,7 @@ if FROZEN:
 
     SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/messages/*.py',
         exclude=[
+            SOURCE_PY_DIR + 'trezor/messages/AVA*.py',
             SOURCE_PY_DIR + 'trezor/messages/Binance*.py',
             SOURCE_PY_DIR + 'trezor/messages/Cardano*.py',
             SOURCE_PY_DIR + 'trezor/messages/DebugMonero*.py',
@@ -471,6 +472,9 @@ if FROZEN:
     )
 
     if EVERYTHING:
+        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/ava/*.py'))
+        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/messages/AVA*.py'))
+
         SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/binance/*.py'))
         SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/messages/Binance*.py'))
 

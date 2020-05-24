@@ -21,6 +21,7 @@ def _boot_apps() -> None:
     import apps.misc
 
     if not utils.BITCOIN_ONLY:
+        import apps.ava
         import apps.ethereum
         import apps.lisk
         import apps.monero
@@ -42,6 +43,7 @@ def _boot_apps() -> None:
     apps.bitcoin.boot()
     apps.misc.boot()
     if not utils.BITCOIN_ONLY:
+        apps.ava.boot()
         apps.ethereum.boot()
         apps.lisk.boot()
         apps.monero.boot()
