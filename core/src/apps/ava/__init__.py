@@ -7,3 +7,4 @@ SLIP44_ID = 909  # random
 
 def boot() -> None:
     wire.add(MessageType.GetAVAAddress, __name__, "get_address")
+    wire.add(MessageType.AVASignTx, __name__, "sign_tx")
