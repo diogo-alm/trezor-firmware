@@ -26,15 +26,17 @@ async def sign_tx(ctx, msg, keychain):
 
     for output in msg.outputs:
         writers.write_bytes_unchecked(w, bytearray(output.asset))
-        writers.write_uint32_be(w, output.fxid)
+        writers.write_uint32_be(w, 0x07) # secp256k1 output
         writers.write_uint64_be(w, output.amount)
         writers.write_uint64_be(w, output.locktime)
         writers.write_uint32_be(w, output.threshold)
+        
 
         # explain it will be shown and why
-        addr = base58.decode(output.address[-2:])[
+        addr = base58.decode(output.address[2:])[
             :-4
-        ]  # remove X- prepend and then the checksum
+        ]  # remove X- prepend and then the checksum\
+        writers.write_uint32_be(w, 0x01)
         writers.write_bytes_unchecked(w, bytearray(addr))
 
     # TODO: sort inputs
@@ -44,8 +46,12 @@ async def sign_tx(ctx, msg, keychain):
         writers.write_bytes_unchecked(w, bytearray(inp.txid))
         writers.write_uint32_be(w, inp.index)
         writers.write_bytes_unchecked(w, bytearray(inp.asset))
-        writers.write_uint32_be(w, inp.fxid)
+
+       
+        writers.write_uint32_be(w, 0x05) # secp256k1 input
         writers.write_uint64_be(w, inp.amount)
+        writers.write_uint32_be(w, 0x01)
+        writers.write_uint32_be(w, 0x00)
 
     # sign
     digest = sha256(w).digest()
@@ -53,6 +59,7 @@ async def sign_tx(ctx, msg, keychain):
 
     writers.write_uint32_be(w, 0x09)  # SECP256K1 type credential
     writers.write_uint32_be(w, 1)  # number of signatures
+
     writers.write_bytes_unchecked(w, bytearray(signature))
 
     return AVASignedTx(tx=w)
