@@ -259,4 +259,6 @@ enum MessageType {
     // AVA
     MessageType_GetAVAAddress = 901 [(wire_in) = true];
     MessageType_AVAAddress = 902 [(wire_out) = true];
+    MessageType_AVASignTx = 903 [(wire_in) = true];
+    MessageType_AVASignedTx = 904 [(wire_out) = true];
 }

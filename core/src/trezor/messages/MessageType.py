@@ -198,3 +198,5 @@ if not utils.BITCOIN_ONLY:
     WebAuthnRemoveResidentCredential = 803  # type: Literal[803]
 GetAVAAddress = 901  # type: Literal[901]
 AVAAddress = 902  # type: Literal[902]
+AVASignTx = 903  # type: Literal[903]
+AVASignedTx = 904  # type: Literal[904]

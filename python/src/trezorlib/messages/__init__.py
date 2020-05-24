@@ -2,6 +2,10 @@
 # fmt: off
 
 from .AVAAddress import AVAAddress
+from .AVAInput import AVAInput
+from .AVAOutput import AVAOutput
+from .AVASignTx import AVASignTx
+from .AVASignedTx import AVASignedTx
 from .Address import Address
 from .ApplyFlags import ApplyFlags
 from .ApplySettings import ApplySettings
