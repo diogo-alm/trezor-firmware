@@ -29,6 +29,7 @@ from ..transport import enumerate_devices
 from ..transport.udp import UdpTransport
 from . import (
     TrezorConnection,
+    ava,
     binance,
     btc,
     cardano,
@@ -312,6 +313,7 @@ def wait_for_emulator(obj, timeout):
 # Basic coin functions
 #
 
+cli.add_command(ava.cli)
 cli.add_command(binance.cli)
 cli.add_command(btc.cli)
 cli.add_command(cardano.cli)
