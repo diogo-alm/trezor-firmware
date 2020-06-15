@@ -12,7 +12,7 @@ async def get_address(ctx, msg, keychain):
 
     node = keychain.derive(msg.address_n)
     seckey = node.private_key()
-    public_key = secp256k1.publickey(seckey, False)[1:]  # uncompressed
+    public_key = node.public_key()
 
     data = ripemd160(sha256(public_key).digest()).digest()
     checksum = sha256(data).digest()
