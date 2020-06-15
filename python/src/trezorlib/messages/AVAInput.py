@@ -14,24 +14,24 @@ class AVAInput(p.MessageType):
 
     def __init__(
         self,
+        address_n: List[int] = None,
         txid: bytes = None,
         index: int = None,
         asset: bytes = None,
-        fxid: int = None,
         amount: int = None,
     ) -> None:
+        self.address_n = address_n if address_n is not None else []
         self.txid = txid
         self.index = index
         self.asset = asset
-        self.fxid = fxid
         self.amount = amount
 
     @classmethod
     def get_fields(cls) -> Dict:
         return {
-            1: ('txid', p.BytesType, 0),  # required
-            2: ('index', p.UVarintType, 0),  # required
-            3: ('asset', p.BytesType, 0),  # required
-            4: ('fxid', p.UVarintType, 0),  # required
+            1: ('address_n', p.UVarintType, p.FLAG_REPEATED),
+            2: ('txid', p.BytesType, 0),  # required
+            3: ('index', p.UVarintType, 0),  # required
+            4: ('asset', p.BytesType, 0),  # required
             5: ('amount', p.UVarintType, 0),  # required
         }

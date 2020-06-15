@@ -20,15 +20,11 @@ class AVASignTx(p.MessageType):
         self,
         network: int = None,
         blockchain_id: bytes = None,
-        asset: bytes = None,
-        address_n: List[int] = None,
         outputs: List[AVAOutput] = None,
         inputs: List[AVAInput] = None,
     ) -> None:
         self.network = network
         self.blockchain_id = blockchain_id
-        self.asset = asset
-        self.address_n = address_n if address_n is not None else []
         self.outputs = outputs if outputs is not None else []
         self.inputs = inputs if inputs is not None else []
 
@@ -37,8 +33,6 @@ class AVASignTx(p.MessageType):
         return {
             1: ('network', p.UVarintType, 0),  # required
             2: ('blockchain_id', p.BytesType, 0),  # required
-            3: ('asset', p.BytesType, 0),  # required
-            4: ('address_n', p.UVarintType, p.FLAG_REPEATED),
-            5: ('outputs', AVAOutput, p.FLAG_REPEATED),
-            6: ('inputs', AVAInput, p.FLAG_REPEATED),
+            3: ('outputs', AVAOutput, p.FLAG_REPEATED),
+            4: ('inputs', AVAInput, p.FLAG_REPEATED),
         }

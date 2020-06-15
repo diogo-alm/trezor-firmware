@@ -28,35 +28,28 @@ message AVAAddress {
 
 /**
  * Request: Ask device to sign transaction
- * @start
- * @next TxRequest
- * @next Failure
  */
 message AVASignTx {
     required uint32 network = 1;
     required bytes blockchain_id = 2;
-    required bytes asset = 3;
-    repeated uint32 address_n = 4;
-    repeated AVAOutput outputs = 5;
-    repeated AVAInput inputs = 6;
+    repeated AVAOutput outputs = 3;
+    repeated AVAInput inputs = 4;
 
     message AVAOutput {
         required bytes asset = 1;
-        required uint32 fxid = 2;
-        required uint64 amount = 3;
-        required uint64 locktime = 4;
-        required uint32 threshold = 5;
-        required string address = 6;
+        required uint64 amount = 2;
+        required uint64 locktime = 3;
+        required uint32 threshold = 4;
+        required string address = 5;
     }
 
     message AVAInput {
-        required bytes txid = 1;
-        required uint32 index = 2;
-        required bytes asset = 3;
-        required uint32 fxid = 4;
+        repeated uint32 address_n = 1;
+        required bytes txid = 2;
+        required uint32 index = 3;
+        required bytes asset = 4;
         required uint64 amount = 5;
     }
-
 }
 
 /**
@@ -66,3 +59,6 @@ message AVASignTx {
 message AVASignedTx {
     required bytes tx = 1;   // signed tx
 }
+
+
+

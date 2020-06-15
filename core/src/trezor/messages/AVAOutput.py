@@ -15,14 +15,12 @@ class AVAOutput(p.MessageType):
     def __init__(
         self,
         asset: bytes = None,
-        fxid: int = None,
         amount: int = None,
         locktime: int = None,
         threshold: int = None,
         address: str = None,
     ) -> None:
         self.asset = asset
-        self.fxid = fxid
         self.amount = amount
         self.locktime = locktime
         self.threshold = threshold
@@ -32,9 +30,8 @@ class AVAOutput(p.MessageType):
     def get_fields(cls) -> Dict:
         return {
             1: ('asset', p.BytesType, 0),  # required
-            2: ('fxid', p.UVarintType, 0),  # required
-            3: ('amount', p.UVarintType, 0),  # required
-            4: ('locktime', p.UVarintType, 0),  # required
-            5: ('threshold', p.UVarintType, 0),  # required
-            6: ('address', p.UnicodeType, 0),  # required
+            2: ('amount', p.UVarintType, 0),  # required
+            3: ('locktime', p.UVarintType, 0),  # required
+            4: ('threshold', p.UVarintType, 0),  # required
+            5: ('address', p.UnicodeType, 0),  # required
         }
