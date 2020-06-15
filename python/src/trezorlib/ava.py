@@ -21,13 +21,11 @@ def sign_tx(
     utxo_amount: int,
     to_address: str,
     amount: int,
-    fxid: int,
 ):
 
     outputs = [
         messages.AVAOutput(
             asset=asset_id,
-            fxid=fxid,
             amount=amount,
             locktime=0,
             threshold=1,
@@ -37,11 +35,11 @@ def sign_tx(
 
     inputs = [
         messages.AVAInput(
+            address_n=address_n,
             txid=transaction_id,
             index=utxo_index,
             asset=asset_id,
-            fxid=fxid,
-            amount=amount,
+            amount=utxo_amount,
         )
     ]
 
@@ -49,8 +47,6 @@ def sign_tx(
         messages.AVASignTx(
             network=network_id,
             blockchain_id=blockchain_id,
-            asset=asset_id,
-            address_n=address_n,
             outputs=outputs,
             inputs=inputs,
         )

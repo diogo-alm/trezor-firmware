@@ -13,7 +13,7 @@ def cli():
 
 def parse_utxo(utxo):
     utxo = tools.b58decode(utxo)[:-4]
-    
+
     txid = utxo[:32]
     utxo = utxo[32:]
 
@@ -21,7 +21,7 @@ def parse_utxo(utxo):
 
     # skip asset id / outputid
     utxo = utxo[4 + 32 + 4:]
-    
+
     utxo_amount = int.from_bytes(utxo[:8], byteorder='big')
 
     return txid, utxo_index, utxo_amount
@@ -42,7 +42,7 @@ def get_address(client, address):
 
 @cli.command()
 @click.option(
-    "-i", "--network-id", type=int, default=2, help="Network ID (replay protection)"
+    "-i", "--network-id", type=int, default=2, help="Network ID"
 )
 @click.option("-b", "--blockchain-id", required=True, help="Blockchain ID")
 @click.option("-a", "--asset-id", required=True, help="Asset ID")
@@ -63,7 +63,6 @@ def sign_tx(
 ):
     """Sign simple 1 output to 1 input transaction."""
     address_n = tools.parse_path(address)
-    fxid = 0  # ava docs
 
     blockchain_id = tools.b58decode(blockchain_id)[:-4]
     asset_id = tools.b58decode(asset_id)[:-4]
@@ -81,7 +80,6 @@ def sign_tx(
         int(utxo_amount),
         to_address,
         int(amount),
-        fxid,
     )
 
     checksum = sha256(tx).digest()
@@ -92,11 +90,5 @@ def sign_tx(
 
 
 
-# trezorctl ava sign-tx \
-#     -i 2 \
-#     -b 4ktRjsAKxgMr2aEzv9SWmrU7Xk5FniHUrVCX4P1TZSfTLZWFM \
-#     -a 21d7KVtPrubc5fHr6CGNcgbUb4seUjmZKr35ZX7BZb5iP8pXWA \
-#     -n "m/44'/909'/1/1" \
-#     -u 8AKHQym1UbYwrgmondxBcmMqNH5Vcp9XEgUpETsk1cfiKHoLXPFV1cFahVhaQWyD6p2aZw1jdfqWwweEVW7D33hDACmcHBE4CzuWggb6f1YcHTk41tXmpF14suLPwNtXynbxtWQtsYXAVycfsjtoGFZhBFA5dGkJXXjX \
-#     X-MzyZFoD8pvAaNf5LpqWVnGZNb4NmsR3sj \
-#     19000
+
+#trezorctl ava sign-tx     -i 3     -b rrEWX7gc7D9mwcdrdBxBTdqh1a7WDVsMuadhTZgyXfFcRz45L     -a 21d7KVtPrubc5fHr6CGNcgbUb4seUjmZKr35ZX7BZb5iP8pXWA     -n "m/44'/909'/1/1"     -u GpfLyJr3o4NjTrrrZ6Wkmyuj6miivy5ooHvR6PnQivSk3KGqAQL1NV2PqHp1zswp4gfBdcXXt1dkzeRJsCHbqZcjiAMcnLXdYXigh7p2XuVrjWfxydWL2GcvkNHPabqYzfkzoFnbYBw183tV7XYw1fhPSF7CcbP1XSPS     X-MzyZFoD8pvAaNf5LpqWVnGZNb4NmsR3sj     19000
