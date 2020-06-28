@@ -29,7 +29,6 @@ async def sign_tx(ctx, msg, keychain):
         writers.write_uint64_be(w, output.locktime)
         writers.write_uint32_be(w, output.threshold)
 
-        # explain it will be shown and why
         addr = base58.decode(output.address[2:])[
             :-4
         ]  # remove X- prepend and checksum
